@@ -78,8 +78,8 @@ class ReplicateServer {
 
     this.server = new Server(
       {
-        name: 'replicate-mcp-server',
-        version: '2.0.0',
+        name: 'replicate-anywhere',
+        version: '1.0.0',
       },
       {
         capabilities: {

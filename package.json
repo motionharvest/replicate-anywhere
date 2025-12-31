@@ -1,21 +1,49 @@
 {
-  "name": "replicate-mcp-server",
-  "version": "2.0.0",
-  "main": "index.js",
+  "name": "replicate-anywhere",
+  "version": "1.0.0",
+  "description": "An MCP server that enables AI assistants to search, discover, and run any model on Replicate. Supports fuzzy model name matching, automatic parameter detection, and inline image display.",
+  "main": "build/index.js",
   "type": "module",
+  "bin": {
+    "replicate-anywhere": "./build/index.js"
+  },
   "scripts": {
     "build": "tsc",
     "start": "node build/index.js",
+    "dev": "tsc --watch",
     "prepublishOnly": "npm run build"
   },
-  "author": "",
-  "license": "ISC",
-  "description": "MCP server for dynamically searching and running Replicate AI models",
+  "keywords": [
+    "mcp",
+    "model-context-protocol",
+    "replicate",
+    "ai",
+    "image-generation",
+    "llm",
+    "stable-diffusion",
+    "flux",
+    "ai-models"
+  ],
+  "author": "Fifth Season AI",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/fifthseason-ai/replicate-anywhere"
+  },
+  "bugs": {
+    "url": "https://github.com/fifthseason-ai/replicate-anywhere/issues"
+  },
+  "homepage": "https://github.com/fifthseason-ai/replicate-anywhere#readme",
   "dependencies": {
     "@modelcontextprotocol/sdk": "^1.5.0",
+    "replicate": "^1.4.0"
+  },
+  "devDependencies": {
     "@types/node": "^22.13.5",
-    "replicate": "^1.4.0",
     "typescript": "^5.7.3"
+  },
+  "engines": {
+    "node": ">=18.0.0"
   },
   "files": [
     "build/**/*"
