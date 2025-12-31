@@ -228,4 +228,4 @@ Contributions are welcome! Please open an issue or submit a pull request.
 
 ## Credits
 
-Built by [Fifth Season AI](https://fifthseason.ai)
+Built by [Aaron Sherrill](https://github.com/motionharvest)
