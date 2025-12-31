@@ -1,0 +1,23 @@
+{
+  "name": "replicate-mcp-server",
+  "version": "2.0.0",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "build": "tsc",
+    "start": "node build/index.js",
+    "prepublishOnly": "npm run build"
+  },
+  "author": "",
+  "license": "ISC",
+  "description": "MCP server for dynamically searching and running Replicate AI models",
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.5.0",
+    "@types/node": "^22.13.5",
+    "replicate": "^1.4.0",
+    "typescript": "^5.7.3"
+  },
+  "files": [
+    "build/**/*"
+  ]
+}
