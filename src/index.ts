@@ -8,6 +8,7 @@ import {
   McpError,
 } from '@modelcontextprotocol/sdk/types.js';
 import Replicate from 'replicate';
+import { estimateReplicateCost, formatCostMarker } from './pricing.js';
 
 const REPLICATE_API_TOKEN = process.env.REPLICATE_API_TOKEN;
 if (!REPLICATE_API_TOKEN) {
@@ -553,11 +554,18 @@ class ReplicateServer {
       const output = currentPrediction.output;
       const formattedOutput = this.formatOutput(output);
 
+      // Estimate the run cost from the prediction's billable compute time + output
+      // count. Replicate returns no dollar figure, so this is an estimate — see
+      // ./pricing.ts. The marker is parsed downstream to record cost in Langfuse.
+      const predictTime =
+        (currentPrediction as { metrics?: { predict_time?: number } }).metrics?.predict_time ?? null;
+      const costEstimate = estimateReplicateCost({ model: modelIdentifier, predictTime, output });
+
       return {
         content: [
           {
             type: 'text',
-            text: formattedOutput,
+            text: formattedOutput + formatCostMarker(costEstimate),
           },
         ],
       };
