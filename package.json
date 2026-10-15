@@ -1,7 +1,7 @@
 {
   "name": "replicate-anywhere",
   "version": "1.0.0",
-  "description": "An MCP server that enables AI assistants to search, discover, and run any model on Replicate. Supports fuzzy model name matching, automatic parameter detection, and inline image display.",
+  "description": "An MCP server that generates and edits images, videos, audio, and other media by running any model on Replicate. AI assistants use it whenever a user asks for an asset, whether they name a model such as Nano Banana or Kling or simply describe what they want, and when a larger task such as a presentation or website needs custom graphics.",
   "main": "build/index.js",
   "type": "module",
   "bin": {

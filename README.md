@@ -1,6 +1,8 @@
 # Replicate Anywhere
 
-An MCP (Model Context Protocol) server that enables AI assistants to search, discover, and run **any model** on [Replicate](https://replicate.com). No hardcoded model lists - just describe what you want and let the AI find and run the right model.
+An MCP (Model Context Protocol) server that gives AI assistants a way to generate and edit media: images, videos, looping clips, audio, music, speech, and 3D. It runs **any model** on [Replicate](https://replicate.com).
+
+The assistant reaches for it in three situations. The user names a model, such as Nano Banana, Kling 2.0, or Seedance. Or the user simply asks for an asset, such as "a video of a beach that loops", without mentioning Replicate or any model. Or a larger task, such as a polished presentation, website, or document, would look better with custom images or video. No hardcoded model lists: the AI searches Replicate for the right model and runs it.
 
 ## Features
 

@@ -86,6 +86,7 @@ class ReplicateServer {
         capabilities: {
           tools: {},
         },
+        instructions: "Replicate Anywhere generates and edits media assets: images, videos, looping clips, audio, music, speech, 3D, and more. It runs any model hosted on Replicate, including image models such as Nano Banana and Flux, and video models such as Kling, Seedance, Veo, and Wan. Use it whenever the user wants an asset created or changed, even when they never mention Replicate or a model. For example, \"make a video of a beach that loops\", \"I need a hero image for this page\", or \"turn this photo into a short clip\" all call for this server. Also use it when a larger task, such as a presentation, website, or document, would look better with custom images or video, even if the user did not ask for any. Also use it whenever the user names a generative model, such as \"use nano banana\", \"Kling 2.0\", or \"Seedance\". Workflow: call search-models with the model name or the kind of asset wanted, call get-model-info on the best match, then call run-model.",
       }
     );
 
@@ -104,7 +105,7 @@ class ReplicateServer {
       tools: [
         {
           name: 'search-models',
-          description: 'IMPORTANT: This tool MUST be called FIRST before asking any clarifying questions about model names. When a user mentions ANY model name (exact, fuzzy, or incomplete like "flux", "stable diffusion", "nano banana pro"), immediately search for it. Do NOT ask the user to confirm model names - search first, then pick the best match from results based on name similarity and run count. Only ask for clarification if the search returns zero results.',
+          description: 'Find a Replicate model for a media task: generate or edit images, videos (including looping clips), audio, music, speech, or 3D. Use it when the user asks for an asset to be made, or when a larger task such as a presentation, website, or document needs custom graphics, even without naming a model or Replicate, and search by the kind of asset (e.g., "looping video", "text to video", "image editing"). IMPORTANT: This tool MUST be called FIRST before asking any clarifying questions about model names. When a user mentions ANY model name (exact, fuzzy, or incomplete like "flux", "stable diffusion", "nano banana pro"), immediately search for it. Do NOT ask the user to confirm model names - search first, then pick the best match from results based on name similarity and run count. Only ask for clarification if the search returns zero results.',
           inputSchema: {
             type: 'object',
             properties: {
@@ -118,7 +119,7 @@ class ReplicateServer {
         },
         {
           name: 'get-model-info',
-          description: 'Get detailed information about a specific Replicate model including its input parameters schema. Call this AFTER search-models to get parameter details for the best matching model before running it.',
+          description: 'Read the inputs a Replicate model accepts before you run it: prompt, image or video inputs, aspect ratio, resolution, duration, looping, seed, and their defaults. Input names differ between models, so call this AFTER search-models and BEFORE run-model, and map what the user asked for (for example "a 10-second loop in 16:9") onto the parameters it returns.',
           inputSchema: {
             type: 'object',
             properties: {
@@ -136,7 +137,7 @@ class ReplicateServer {
         },
         {
           name: 'run-model',
-          description: 'Run a prediction on any Replicate model. WORKFLOW: If the user provides a fuzzy model name, first call search-models to find the exact model identifier, then call get-model-info to understand required parameters, then call this tool.',
+          description: 'Generate or edit the asset: run a Replicate model and return its output files as URLs (images are also shown inline). WORKFLOW: first call search-models to find the exact model identifier, then get-model-info to learn its inputs, then call this tool. Output URLs expire after about an hour, so download any file you will place in a project, presentation, or page. Slow jobs such as video can return status "processing" with a prediction_id; then call check-prediction.',
           inputSchema: {
             type: 'object',
             properties: {
@@ -155,7 +156,7 @@ class ReplicateServer {
         },
         {
           name: 'list-models',
-          description: 'List public models on Replicate. Use search-models instead when the user mentions a specific model name - this tool is only for browsing all available models without a specific query.',
+          description: 'Browse public models on Replicate page by page, with no query. Use search-models instead for any task or model name, because it finds the right model directly. Use this only when the user wants to explore what is available.',
           inputSchema: {
             type: 'object',
             properties: {
@@ -169,7 +170,7 @@ class ReplicateServer {
         },
         {
           name: 'check-prediction',
-          description: 'Check the status of a running prediction. Use this if a previous run-model call returned a prediction_id with status "processing".',
+          description: 'Get the result of a generation that is still running. Call it when run-model returned a prediction_id with status "processing", which is common for video. It returns the finished output files when the job is done, or the current status otherwise.',
           inputSchema: {
             type: 'object',
             properties: {
